@@ -1,1 +1,4 @@
-* 
+* Lox
+Following the greatest book ever done: https://craftinginterpreters.com/
+
+This series is intended as an introduction to understanding how programming languages work under the hood.  
