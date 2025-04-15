@@ -1,0 +1,85 @@
+* Makefile Cheat Sheet
+
+** Basic Structure
+#+begin_src makefile
+target: dependencies
+	# Commands (tab-indented)
+#+end_src
+
+- Targets are usually filenames or labels like `all`, `clean`
+- Dependencies are files or other targets
+- Commands are shell commands to run (must use a **tab**)
+
+** Common Targets
+#+begin_src makefile
+all: build
+
+build:
+	echo "Building..."
+
+clean:
+	rm -rf build/ *.o
+
+.PHONY: all clean build
+#+end_src
+
+** Variables
+#+begin_src makefile
+CC := gcc
+CFLAGS := -Wall -g
+
+# Use variables
+$(CC) $(CFLAGS)
+#+end_src
+
+- `:=` immediate assignment
+- `=` lazy assignment
+- `?=` assign only if not already set
+- `+=` append
+
+** Automatic Variables
+| Variable | Description                      |
+|----------+----------------------------------|
+| $@       | Target name                      |
+| $<       | First prerequisite               |
+| $^       | All prerequisites                |
+| $?       | Prereqs newer than target        |
+| $*       | Target name without extension    |
+
+** Pattern Rules
+#+begin_src makefile
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+#+end_src
+
+** Built-in Functions
+#+begin_src makefile
+# Strip directory from filename
+$(notdir path/to/file.c)  # => file.c
+
+# Strip extension
+$(basename file.c)        # => file
+
+# Join strings
+$(join foo, bar)          # => foobar
+#+end_src
+
+** Cleanups & Phony Targets
+#+begin_src makefile
+.PHONY: all clean run
+
+clean:
+	rm -rf build *.o
+#+end_src
+
+** Pro Tips
+- Use tabs, not spaces, for command lines
+- Use `@` to suppress command output:
+  #+begin_src makefile
+  @echo "Silent mode"
+  #+end_src
+- Use `-` to ignore errors:
+  #+begin_src makefile
+  -rm maybe_missing_file.o
+  #+end_src
+  
