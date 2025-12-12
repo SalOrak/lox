@@ -33,4 +33,8 @@ $(DIST_DIR)/$(JAR_NAME): $(BUILD_DIR)/.compiled
 clean:
 	rm -rf $(BUILD_DIR) $(DIST_DIR)
 
-.PHONY: all clean
+# Run
+run: 
+	java -jar dist/$(JAR_NAME)
+
+.PHONY: all clean run
